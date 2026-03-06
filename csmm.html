@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chainsaw Man - Advanced Site</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#000000,#1a0000,#330000);
+    color:white;
+}
+
+header{
+    text-align:center;
+    padding:40px 20px;
+    border-bottom:2px solid #ff3c00;
+}
+
+h1{
+    margin:0;
+    font-size:48px;
+    color:#ff3c00;
+}
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    padding:20px;
+    background:rgba(0,0,0,0.6);
+    position:sticky;
+    top:0;
+}
+
+nav button{
+    background:none;
+    border:1px solid #ff3c00;
+    color:white;
+    padding:10px 18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+nav button:hover{
+    background:#ff3c00;
+}
+
+section{
+    display:none;
+    padding:60px 20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.active{
+    display:block;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.card{
+    background:#111;
+    border:1px solid #ff3c00;
+    padding:20px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 15px #ff3c00;
+}
+
+h2{
+    color:#ff3c00;
+}
+
+.search{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    padding:10px;
+    width:60%;
+    max-width:400px;
+    border-radius:5px;
+    border:none;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:2px solid #ff3c00;
+    margin-top:40px;
+    font-size:14px;
+    color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>CHAINSAW MAN</h1>
+</header>
+
+<nav>
+<button onclick="show('home')">Acasă</button>
+<button onclick="show('story')">Poveste</button>
+<button onclick="show('characters')">Personaje</button>
+</nav>
+
+<section id="home" class="active">
+<h2>Prezentare</h2>
+<p>
+Acest site este dedicat universului Chainsaw Man.
+Include informații despre poveste și personajele principale,
+structurate clar și profesionist.
+</p>
+</section>
+
+<section id="story">
+<h2>Poveste</h2>
+<p>
+Acțiunea are loc într-o lume unde demonii există și sunt alimentați de frica umană.
+Organizațiile de Devil Hunters luptă împotriva lor.
+Protagonistul, un tânăr sărac, ajunge să se contopească cu un demon,
+dobândind abilitatea de a transforma părți ale corpului în drujbe.
+Povestea explorează teme precum supraviețuirea, manipularea,
+libertatea personală și natura dorinței umane.
+</p>
+</section>
+
+<section id="characters">
+
+<h2>Personaje Principale</h2>
+
+<div class="search">
+<input type="text" id="searchInput" onkeyup="filterCharacters()" placeholder="Caută un personaj...">
+</div>
+
+<div class="cards" id="characterList"></div>
+
+</section>
+
+<footer>
+Univers creat pe baza seriei Chainsaw Man.
+</footer>
+
+<script>
+
+function show(id){
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+const characters = [
+{
+name:"Denji",
+info:"Protagonistul. Devine Chainsaw Man după ce se contopește cu Pochita."
+},
+{
+name:"Power",
+info:"Blood Fiend. Impulsivă, imprevizibilă, dar dezvoltă legături puternice."
+},
+{
+name:"Aki Hayakawa",
+info:"Devil Hunter disciplinat, cu un obiectiv personal legat de răzbunare."
+},
+{
+name:"Makima",
+info:"Oficial de rang înalt în Public Safety. Are abilități de control extrem de puternice."
+},
+{
+name:"Kobeni Higashiyama",
+info:"Membru timid al echipei, dar surprinzător de rezistentă în situații critice."
+},
+{
+name:"Himeno",
+info:"Parteneră experimentată în echipa lui Aki."
+},
+{
+name:"Kishibe",
+info:"Devil Hunter veteran, cunoscut pentru experiența sa și antrenamentul dur."
+},
+{
+name:"Pochita",
+info:"Chainsaw Devil, forma inițială legată de Denji."
+}
+];
+
+function render(list){
+    const container = document.getElementById("characterList");
+    container.innerHTML="";
+    list.forEach(c=>{
+        container.innerHTML += `
+        <div class="card">
+            <h3>${c.name}</h3>
+            <p>${c.info}</p>
+        </div>`;
+    });
+}
+
+function filterCharacters(){
+    const value = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = characters.filter(c=>c.name.toLowerCase().includes(value));
+    render(filtered);
+}
+
+render(characters);
+
+</script>
+
+</body>
+</html>
